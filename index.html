@@ -109,7 +109,7 @@
         <h1 id="hero-h">Intent-based cryptography API</h1>
         <p class="hero__lead">Your code requests a signature or authenticated encryption, and a policy selects the algorithm. When you move a key from ECDSA to ML-DSA, no call site changes.</p>
         <div class="btn-row"><a class="btn btn--primary" href="get-started.html">Try the quickstart<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a><a class="btn btn--secondary" href="research.html">Read the papers</a></div>
-        <p class="hero__proof">Research prototype, open source under Apache-2.0. Use it only for tests.</p>
+        <p class="hero__proof">Research prototype, open source under Apache-2.0.</p>
       </div>
       <div class="hero__art span-6 start-7" role="img" aria-label="Go code that creates a signature key from a scope, signs with the key name and then moves the key to a quantum-safe template. A card shows the two versions of the key.">
         <div class="ly-piece ly-piece--main" aria-hidden="true">
@@ -176,12 +176,12 @@
             <li><span class="rows__name">Every application, every time</span><p>You must change each line that names the algorithm, in every application. You must do this again for each new algorithm.</p></li>
           </ul>
         </div>
-        <div class="panel diff-panel span-6 start-7" role="img" aria-label="A PKCS#11 signature function that moves from ECDSA P-256 to ML-DSA-65. Five items change: the key generation mechanism, the curve parameter, the signature mechanism, the signature length and the key type.">
+        <div class="panel diff-panel span-6 start-7" role="img" aria-label="Plain PKCS#11 code, without Citius: a signature function that moves from ECDSA P-256 to ML-DSA-65. Five items change: the key generation mechanism, the curve parameter, the signature mechanism, the signature length and the key type.">
           <div class="ui ui-panel ui-code diff-win" data-ui-still aria-hidden="true">
             <div class="ui-code__tabs">
-              <span class="ui-code__tab is-on"><i class="ui-code__lang">C</i>audit_log.c</span>
+              <span class="ui-code__tab is-on"><i class="ui-code__lang">C</i>PKCS#11 · audit_log.c</span>
               <span class="ui-spacer"></span>
-              <span class="ui-chip ui-chip--plain">ECDSA to ML-DSA-65 · 5 changes</span>
+              <span class="ui-chip ui-chip--plain">Plain PKCS#11, without Citius · 5 changes</span>
             </div>
             <pre class="ui-code__pre"><code><span class="ui-code__ln" data-n=" "><span class="c">// 1  key generation</span></span>
 <span class="ui-code__ln is-del" data-n="−">CK_MECHANISM gen = { CKM_EC_KEY_PAIR_GEN, NULL, 0 };</span>
