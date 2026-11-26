@@ -11,13 +11,11 @@
 <meta property="og:image" content="share.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<meta name="theme-color" content="#161c1a">
+<meta name="theme-color" content="#ffffff">
 <!-- <link rel="canonical" href="https://agile-crypto.github.io/"> -->
 <meta name="site-kind" content="software">
 <meta name="page-type" content="software">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400..700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" href="assets/fonts/ibm-plex-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/system.css">
 <link rel="stylesheet" href="assets/ui/cards.css">
 <link rel="stylesheet" href="assets/motion/motion.css">
@@ -43,6 +41,7 @@
 <link rel="stylesheet" href="assets/ui/window/fragment.css">
 <link rel="stylesheet" href="assets/diagrams/diagram.css">
 <link rel="stylesheet" href="assets/site.css?v=10">
+<link rel="stylesheet" href="assets/ibm.css?v=10">
 <script>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
 <script>document.documentElement.classList.add('mo-js');setTimeout(()=>document.documentElement.classList.add('mo-safe'),2500)</script>
 <link rel="modulepreload" href="assets/moments/moments.js">
@@ -157,7 +156,7 @@
     </div></div>
   </section>
 
-  <section class="section statement" id="principle" data-moment="letters-assemble" aria-labelledby="principle-h">
+  <section class="section statement ground-inverse" id="principle" data-moment="letters-assemble" aria-labelledby="principle-h">
     <div class="wrap">
       <h2 id="principle-h" class="mo-la__type">Change the policy, not the code</h2>
       <p class="mo-la__sub">With Citius, your code requests a signature or encryption and does not name an algorithm. When you must replace an algorithm, your security team changes the policy. Your code does not change.</p>
@@ -409,7 +408,7 @@ cargo xtask all</code></pre></div>
 
 </main>
 
-<footer class="footer closing" id="contact" aria-labelledby="close-h">
+<footer class="footer closing footer--dark ground-inverse" id="contact" aria-labelledby="close-h">
   <div class="wrap">
     <div class="closing__cta close--type">
       <div class="section-head">

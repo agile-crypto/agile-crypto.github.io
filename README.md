@@ -18,6 +18,7 @@ Static HTML, CSS and JavaScript; no build step is needed to serve it.
 - `assets/system.css`, `system.js`, `ui/`, `motion/`, `layout/`, `diagrams/`, `moments/`, `icons/icon.css`:
   the design kit (taste-skill 2.5.1). Do not edit these; page styles go in `assets/site.css`.
 - `assets/site.css`, `assets/site.js`: the site's own styles and the copy buttons.
+- `assets/ibm.css`, `assets/fonts/`: the IBM theme (Carbon for IBM.com colour tokens, IBM Plex Sans and Mono, self-hosted). It loads after `site.css`.
 - `assets/icons/*.svg`: real tool marks (Go, Rust, gRPC, protobuf, C, OpenSSL), with `icons-credits.json`.
 - `assets/img/paper-intent-api-p1.jpg`: the first page of arXiv:2606.13445.
 - `tools/`: the generators.

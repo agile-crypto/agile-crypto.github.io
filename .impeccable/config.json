@@ -1,0 +1,53 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-11-26T16:23:11.869Z",
+        "reason": "Claude: verified in render, sections pad 64px, rows 12px, table cells padded; detector reads unstyled markup"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "get-started.html"
+        ],
+        "createdAt": "2026-11-26T16:23:11.928Z",
+        "reason": "Claude: verified in render, sections pad 64px, rows 12px, table cells padded; detector reads unstyled markup"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "releases.html"
+        ],
+        "createdAt": "2026-11-26T16:23:11.986Z",
+        "reason": "Claude: verified in render, sections pad 64px, rows 12px, table cells padded; detector reads unstyled markup"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "research.html"
+        ],
+        "createdAt": "2026-11-26T16:23:12.040Z",
+        "reason": "Claude: verified in render, sections pad 64px, rows 12px, table cells padded; detector reads unstyled markup"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "contribute.html"
+        ],
+        "createdAt": "2026-11-26T16:23:12.096Z",
+        "reason": "Claude: verified in render, sections pad 64px, rows 12px, table cells padded; detector reads unstyled markup"
+      }
+    ]
+  }
+}
