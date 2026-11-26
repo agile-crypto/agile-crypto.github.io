@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en" data-type="software" data-radius="sharp" data-ground="sage" data-buttons="pill" data-motion>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Get started with Citius: quickstart, installation and documentation</title>
+<meta name="description" content="Run the Citius reference server, create a key from a scope, sign, and move the key to ML-DSA. Or link libagilecrypto into a C program.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Get started with Citius: quickstart, installation and documentation">
+<meta property="og:description" content="Run the Citius reference server, create a key from a scope, sign, and move the key to ML-DSA. Or link libagilecrypto into a C program.">
+<meta property="og:image" content="share.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#161c1a">
+<meta name="site-kind" content="software">
+<meta name="page-type" content="software">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400..700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/system.css">
+<link rel="stylesheet" href="assets/ui/cards.css">
+<link rel="stylesheet" href="assets/motion/motion.css">
+<link rel="stylesheet" href="assets/icons/icon.css">
+<style>
+:root {
+  --p-bg: #161c1a; --p-surface: #1f2725; --p-ink: #e3e2da; --p-muted: #8e948d;
+  --p-accent: #9fc7b8; --p-accent-ink: #161c1a; --p-action: #9fc7b8; --p-action-ink: #161c1a;
+  --p-inv-bg: #e3e2da; --p-inv-surface: #d3d2cb; --p-inv-ink: #161c1a; --p-inv-muted: #555a55;
+  --p-inv-accent: #161c1a; --p-inv-accent-ink: #e3e2da; --p-inv-action: #161c1a; --p-inv-action-ink: #e3e2da;
+  --font-display: "Familjen Grotesk", system-ui, sans-serif;
+  --font-text: "Familjen Grotesk", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --display-weight: 400;
+  --display-tracking: -0.03em;
+  --display-tracking-xl: -0.04em;
+}
+</style>
+<link rel="stylesheet" href="assets/site.css?v=10">
+<script>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
+</head>
+<body class="doc-page">
+<header class="nav nav--centre">
+  <div class="wrap nav__bar">
+    <a class="skip-link" href="#top">Skip to content</a>
+    <a class="nav__logo" href="index.html">Citius</a>
+    <nav class="nav__links" aria-label="Main">
+      <div class="nav__item"><a class="nav__link" href="index.html#how">Concepts</a></div>
+      <div class="nav__item"><a class="nav__link" href="releases.html">Releases</a></div>
+      <div class="nav__item"><a class="nav__link" href="research.html">Research</a></div>
+      <div class="nav__item"><a class="nav__link" href="contribute.html">Contribute</a></div>
+    </nav>
+    <div class="nav__actions">
+      <a class="nav__link" href="https://github.com/agile-crypto">GitHub</a>
+      <a class="btn btn--primary" href="get-started.html">Try the quickstart</a>
+    </div>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-label="Menu">
+      <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 5h14M2 13h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+</header>
+<main id="top"><div class="doc-main">
+  <section class="doc-hero" aria-labelledby="page-h">
+    <div class="wrap">
+      <a class="crumb" href="index.html">Citius home</a>
+      <h1 id="page-h">Get started with Citius</h1>
+      <p class="t-lead">Run the reference server and sign with a key that you create from a scope. Or link the C library into your process. Then find the reference documentation.</p>
+    </div>
+  </section>
+  <section class="doc-sec" id="paths" aria-labelledby="paths-h">
+    <div class="wrap doc-grid">
+      <div><h2 id="paths-h">Three ways to use Citius</h2></div>
+      <div class="doc-body">
+        <p>All three follow the same specification. The concepts are the same in each.</p>
+        <ul class="path-rows ic-dark">
+          <li><img class="ic ic-40 ic-wide" src="assets/icons/grpc.svg" alt="" width="40" height="16"><div><a class="path-rows__name" href="#quickstart">Run the server</a><p>Run citius-server on localhost:50051, with in-memory keys and no authentication. Try it with grpcurl in five minutes.</p></div></li>
+          <li><img class="ic ic-40 ic-wide" src="assets/icons/go.svg" alt="" width="40" height="15"><div><a class="path-rows__name" href="https://github.com/agile-crypto/citius-go-sdk">Call it from Go</a><p>The Go SDK gives Go clients for the services, with TLS, bearer tokens and YAML configuration.</p></div></li>
+          <li><img class="ic ic-40 ic-ink" src="assets/icons/rust.svg" alt="" width="40" height="40"><div><a class="path-rows__name" href="#in-process">Link it into C</a><p>libagilecrypto runs the same API in your process. It has agc_* C headers and a Rust implementation.</p></div></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <section class="doc-sec" id="quickstart" aria-labelledby="quickstart-h">
+    <div class="wrap doc-grid">
+      <div><h2 id="quickstart-h">Quickstart: sign, then move the key to ML-DSA</h2></div>
+      <div class="doc-body">
+        <p>This quickstart takes about five minutes. You need <a class="link" href="https://github.com/fullstorydev/grpcurl">grpcurl</a> and jq. You run the reference server and create a policy and a key from a scope. Then you sign, verify and move the key to a quantum-safe template.</p>
+        <h3>1. Run citius-server</h3>
+<div class="copy-wrap"><pre class="block"><code>git clone https://github.com/agile-crypto/citius-server
+cd citius-server
+make run-dev    # gRPC on 127.0.0.1:50051 with reflection, no authentication, no TLS</code></pre><button class="copy-btn" type="button" data-copy>Copy</button></div>
+        <h3>2. Save the policy as policy.json</h3>
+<div class="copy-wrap"><pre class="block"><code>{
+  &quot;version&quot;: &quot;1&quot;,
+  &quot;allowed_templates&quot;: [
+    &quot;ecdsa-p256-sha256-der&quot;,
+    &quot;ml-dsa-65&quot;
+  ],
+  &quot;allowed_operations&quot;: {
+    &quot;key_operations&quot;: [
+      &quot;create_key&quot;, &quot;read_key&quot;, &quot;sign&quot;, &quot;verify&quot;
+    ]
+  }
+}</code></pre><button class="copy-btn" type="button" data-copy>Copy</button></div>
+        <h3>3. Create, sign, verify, transform</h3>
+<div class="copy-wrap"><pre class="block"><code><span class="c"># 2. create a policy: it lists the templates that its keys can use</span>
+jq -Rs &#x27;{name: &quot;prod-signing&quot;, policyDocument: .}&#x27; policy.json   | grpcurl -plaintext -d @ localhost:50051 caas.crypto.v1.CryptoPolicyService/CreateCryptoPolicy
+
+<span class="c"># 3. create a key from a scope: a standard signature, no algorithm</span>
+grpcurl -plaintext -d &#x27;{&quot;name&quot;: &quot;contract-signing-key&quot;, &quot;policy&quot;: &quot;prod-signing&quot;,
+  &quot;scopeSpec&quot;: {&quot;signature&quot;: {&quot;scope&quot;: &quot;SIGNATURE_SCOPE_STANDARD&quot;}}}&#x27;   localhost:50051 caas.crypto.v1.KeyManagementService/CreateKey | jq &#x27;.keyMetadata | {templateId, version}&#x27;
+
+<span class="c"># 4. sign with the key name (&quot;contract v1&quot; in base64), then verify</span>
+grpcurl -plaintext -d &#x27;{&quot;keyName&quot;: &quot;contract-signing-key&quot;, &quot;input&quot;: &quot;Y29udHJhY3QgdjE=&quot;, &quot;noContext&quot;: {}}&#x27;   localhost:50051 caas.crypto.v1.CryptoService/Sign &gt; sig.json
+jq &#x27;{keyName: &quot;contract-signing-key&quot;, input: &quot;Y29udHJhY3QgdjE=&quot;, signature, metadata, noContext: {}}&#x27; sig.json   | grpcurl -plaintext -d @ localhost:50051 caas.crypto.v1.CryptoService/Verify | jq &#x27;{valid}&#x27;
+
+<span class="c"># 5. move the key to a quantum-safe template. The Sign request does not change.</span>
+grpcurl -plaintext -d &#x27;{&quot;name&quot;: &quot;contract-signing-key&quot;,
+  &quot;scopeSpec&quot;: {&quot;signature&quot;: {&quot;scope&quot;: &quot;SIGNATURE_SCOPE_STANDARD&quot;, &quot;security&quot;: {&quot;quantumSafe&quot;: true}}}}&#x27;   localhost:50051 caas.crypto.v1.KeyManagementService/TransformKey | jq &#x27;.keyMetadata | {templateId, version}&#x27;</code></pre><button class="copy-btn" type="button" data-copy>Copy</button></div>
+        <p>The commands return these results:</p>
+<div class="copy-wrap"><pre class="block"><code><span class="c"># step 3</span>
+{ &quot;templateId&quot;: &quot;ecdsa-p256-sha256-der&quot;, &quot;version&quot;: 1 }
+<span class="c"># step 4</span>
+{ &quot;valid&quot;: true }
+<span class="c"># step 5</span>
+{ &quot;templateId&quot;: &quot;ml-dsa-65&quot;, &quot;version&quot;: 2 }</code></pre><button class="copy-btn" type="button" data-copy>Copy</button></div>
+        <p>Run the Verify command of step 4 again after step 5. The old signature is still valid against key version 1. A new Sign uses key version 2 and makes an ML-DSA-65 signature of 3,309 bytes.</p>
+        <div class="note"><p>The server keeps keys in memory. When you restart the server, the key store is empty.</p></div>
+      </div>
+    </div>
+  </section>
+  <section class="doc-sec" id="in-process" aria-labelledby="in-process-h">
+    <div class="wrap doc-grid">
+      <div><h2 id="in-process-h">In-process from C</h2></div>
+      <div class="doc-body">
+        <p>libagilecrypto is the C API, written in Rust. You need a Rust toolchain, libclang for bindgen and a C compiler. The install command writes the library, the headers, a pkg-config file and a CMake package.</p>
+<div class="copy-wrap"><pre class="block"><code>git clone https://github.com/agile-crypto/citius-c-api
+git clone https://github.com/agile-crypto/citius-rust
+cd citius-rust
+cargo xtask install --prefix /opt/agilecrypto
+cc app.c $(pkg-config --cflags --libs agilecrypto)</code></pre><button class="copy-btn" type="button" data-copy>Copy</button></div>
+<div class="copy-wrap"><pre class="block"><code>find_package(agilecrypto 1.0 REQUIRED)
+target_link_libraries(app PRIVATE agilecrypto::agilecrypto)</code></pre><button class="copy-btn" type="button" data-copy>Copy</button></div>
+        <p>The <code>examples/c/</code> folder in citius-rust has three small programs: encrypt and decrypt, sign and verify, and a persistent key store. By default, keys stay in memory. To keep them on disk, set <code>key_store_uri</code> to a <code>file:</code> directory and supply a 32-byte wrapping key.</p>
+      </div>
+    </div>
+  </section>
+  <section class="doc-sec" id="install" aria-labelledby="install-h">
+    <div class="wrap doc-grid">
+      <div><h2 id="install-h">Install</h2></div>
+      <div class="doc-body">
+        <div class="table-scroll"><table class="doc-table">
+          <thead><tr><th scope="col">Component</th><th scope="col">How to get it</th><th scope="col">Needs</th></tr></thead>
+          <tbody>
+            <tr><td>go-sdk</td><td>Clone citius-go-sdk and run <code>make sdk</code>. There is no tagged release yet.</td><td>Go, buf</td></tr>
+            <tr><td>citius-server</td><td>Build from source with <code>make build</code> or <code>make docker-build</code></td><td>Go and OpenSSL 3.5 or later, or Docker or Podman</td></tr>
+            <tr><td>citius-core</td><td><code>go get github.com/agile-crypto/citius-core@v0.4.2</code></td><td>Go</td></tr>
+            <tr><td>libagilecrypto</td><td><code>cargo xtask install --prefix …</code> in citius-rust</td><td>Rust, libclang, a C compiler</td></tr>
+            <tr><td>agc_* headers</td><td>Installed with libagilecrypto, or read from citius-c-api</td><td>A C99 or C++11 compiler</td></tr>
+            <tr><td>api (protobuf)</td><td>Run <code>./build_proto.sh</code> in <code>proto/</code>. It writes Go code, a gRPC gateway and OpenAPI files.</td><td>buf, protoc plugins</td></tr>
+          </tbody>
+        </table></div>
+        <p>There are no prebuilt binaries, signed release archives or published container images yet. If a repository has tags, build from a tagged commit. The <a class="link" href="releases.html">releases page</a> lists the tags. The team develops and tests on macOS and Linux.</p>
+      </div>
+    </div>
+  </section>
+  <section class="doc-sec" id="docs" aria-labelledby="docs-h">
+    <div class="wrap doc-grid">
+      <div><h2 id="docs-h">Documentation</h2></div>
+      <div class="doc-body">
+        <p>The reference documentation is in the repositories, next to the code. It includes the commented protobuf files, the OpenAPI files from <code>build_proto.sh</code>, the Go documentation of each module and the commented C headers.</p>
+        <ul class="rows doc-rows">
+            <li><a class="rows__name link" href="https://github.com/agile-crypto/api/blob/main/proto/API_DESIGN_PHILOSOPHY.md">API design philosophy</a><p>Why the API is an abstraction layer, the deployment modes and the PKCS#11 v3.2 coverage</p></li>
+            <li><a class="rows__name link" href="https://github.com/agile-crypto/api/blob/main/docs/SCOPE_DESIGN_SUMMARY.md">Scope design summary</a><p>How scopes express intent, and the limits of each scope</p></li>
+            <li><a class="rows__name link" href="https://github.com/agile-crypto/citius-c-api/blob/main/docs/C_API_MAPPING.md">C API mapping</a><p>How protobuf types map to C: slices, buffers, tribools and tagged unions</p></li>
+            <li><a class="rows__name link" href="https://github.com/agile-crypto/citius-c-api/blob/main/conformance/DIVERGENCES.yaml">Deliberate divergences</a><p>Each difference between the C API and the wire format, with its reason</p></li>
+            <li><a class="rows__name link" href="https://github.com/agile-crypto/citius-c-api/blob/main/docs/PROTO_RFCS.md">Proposed extensions</a><p>RFCs for the specification, optional through agc_ext.h</p></li>
+            <li><a class="rows__name link" href="https://github.com/agile-crypto/citius-rust/blob/main/DEVIATIONS.md">Rust implementation notes</a><p>The differences between libagilecrypto and the Go server, with reasons</p></li>
+            <li><a class="rows__name link" href="https://github.com/agile-crypto/citius-rust/blob/main/docs/performance-summary.md">Performance summary</a><p>The cost of an agc_* call compared with RustCrypto: time, memory and stack</p></li>
+            <li><a class="rows__name link" href="https://github.com/agile-crypto/citius-go-sdk/blob/main/ARCHITECTURE.md">Go SDK architecture</a><p>How the clients, requests and configuration work together</p></li>
+            <li><a class="rows__name link" href="https://github.com/agile-crypto/citius-server#readme">Server README</a><p>The current features, flags, container, optional authentication and make targets</p></li>
+        </ul>
+
+      </div>
+    </div>
+  </section>
+</div></main>
+<footer class="doc-foot" id="contact">
+  <div class="wrap">
+    <div class="grid">
+      <div class="span-4 stack-4">
+        <a class="nav__logo" href="index.html">Citius</a>
+        <p class="footer__lede">An intent-based cryptography API from IBM Research Europe, Zurich.</p>
+      </div>
+      <div class="span-2 footer__col"><h3>Use</h3><ul><li><a href="get-started.html">Quickstart</a></li><li><a href="get-started.html#install">Install</a></li><li><a href="get-started.html#docs">Documentation</a></li></ul></div>
+      <div class="span-2 footer__col"><h3>Reference</h3><ul><li><a href="releases.html">Releases</a></li><li><a href="https://github.com/agile-crypto/api">API specification</a></li></ul></div>
+      <div class="span-2 footer__col"><h3>Project</h3><ul><li><a href="research.html">Research</a></li><li><a href="contribute.html">Contributing</a></li></ul></div>
+      <div class="span-2 footer__col"><h3>Help</h3><ul><li><a href="contribute.html#security">Security</a></li><li><a href="contribute.html#community">Community</a></li><li><a href="https://github.com/agile-crypto">GitHub</a></li></ul></div>
+    </div>
+    <div class="footer__legal">
+      <span>&copy; 2026 IBM Research Europe and contributors &nbsp; <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License 2.0</a></span>
+      <span class="credits">Product names and logos are trademarks of their owners</span>
+    </div>
+  </div>
+</footer>
+<script type="module" src="assets/system.js"></script>
+<script type="module" src="assets/motion/motion.js"></script>
+<script src="assets/site.js" defer></script>
+</body>
+</html>
