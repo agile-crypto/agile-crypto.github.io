@@ -223,3 +223,26 @@ html .link:hover { text-decoration: underline; text-decoration-color: currentCol
 .doc-foot a { color: #c6c6c6; } .doc-foot a:hover { color: #ffffff; }
 .doc-foot .nav__logo { color: #ffffff; }
 html[data-buttons] .btn--secondary, html[data-buttons] .btn--secondary:hover { text-decoration: none; }
+
+/* ---- hero background: Graceful Exchange (assets/hero-art.js) behind the hero, never behind the words */
+.hero { position: relative; overflow: hidden; isolation: isolate; }
+.hero > .hero-art { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; display: block;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, transparent 40%, rgba(0,0,0,.55) 52%, #000 66%);
+          mask-image: linear-gradient(to right, transparent 0%, transparent 40%, rgba(0,0,0,.55) 52%, #000 66%); }
+.hero > .wrap { position: relative; z-index: 1; }
+@media (max-width: 1023px) {
+  .hero > .hero-art { -webkit-mask-image: linear-gradient(to bottom, transparent 0%, transparent 58%, #000 74%);
+                              mask-image: linear-gradient(to bottom, transparent 0%, transparent 58%, #000 74%); }
+}
+@media (max-width: 639px) {
+  .hero > .hero-art { -webkit-mask-image: linear-gradient(to bottom, transparent 0%, transparent 66%, #000 80%);
+                              mask-image: linear-gradient(to bottom, transparent 0%, transparent 66%, #000 80%); }
+}
+/* the code window floats over the weave: its frame is see-through, the window itself stays solid */
+.hero .hero__art { background: transparent; }
+.hero .hero__art .ui-code { background: #ffffff; border: 1px solid #e0e0e0; }
+/* the art starts under the bar, never behind it; the floating window lines up with the headline */
+.hero > .hero-art { top: var(--nav); height: calc(100% - var(--nav)); }
+@media (min-width: 1024px) { .hero .hero__art > .ly-piece--main { top: 0; } }
+/* a phone has no free ground beside the words and the window: the art rests there */
+@media (max-width: 639px) { .hero > .hero-art { display: none; } }

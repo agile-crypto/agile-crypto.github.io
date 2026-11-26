@@ -41,7 +41,7 @@
 <link rel="stylesheet" href="assets/ui/window/fragment.css">
 <link rel="stylesheet" href="assets/diagrams/diagram.css">
 <link rel="stylesheet" href="assets/site.css?v=10">
-<link rel="stylesheet" href="assets/ibm.css?v=10">
+<link rel="stylesheet" href="assets/ibm.css?v=15">
 <script>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
 <script>document.documentElement.classList.add('mo-js');setTimeout(()=>document.documentElement.classList.add('mo-safe'),2500)</script>
 <link rel="modulepreload" href="assets/moments/moments.js">
@@ -103,9 +103,10 @@
 
 <main id="top">
   <section class="hero hero--collage" data-enter aria-labelledby="hero-h">
+    <canvas class="hero-art" aria-hidden="true"></canvas>
     <div class="wrap"><div class="hero-text grid hero__grid">
       <div class="hero__text span-5">
-        <h1 id="hero-h">Intent-based cryptography API for developers</h1>
+        <h1 id="hero-h">Intent-based cryptography API</h1>
         <p class="hero__lead">Your code requests a signature or authenticated encryption, and a policy selects the algorithm. When you move a key from ECDSA to ML-DSA, no call site changes.</p>
         <div class="btn-row"><a class="btn btn--primary" href="get-started.html">Try the quickstart<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a><a class="btn btn--secondary" href="research.html">Read the papers</a></div>
         <p class="hero__proof">Research prototype, open source under Apache-2.0. Use it only for tests.</p>
@@ -437,6 +438,8 @@ cargo xtask all</code></pre></div>
   </div>
 </footer>
 
+<script src="assets/exchange.js" defer></script>
+<script src="assets/hero-art.js" defer></script>
 <script type="module" src="assets/system.js"></script>
 <script type="module" src="assets/motion/motion.js"></script>
 <script type="module" src="assets/layout/layout.js"></script>

@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<!--
+    THIS IS A TEMPLATE THAT SHOULD BE USED EVERY TIME AND MODIFIED.
+    WHAT TO KEEP:
+    ✓ Overall structure (header, sidebar, main content)
+    ✓ Anthropic branding (colors, fonts, layout)
+    ✓ Seed navigation section (always include this)
+    ✓ Self-contained artifact (everything inline)
+
+    WHAT TO CREATIVELY EDIT:
+    ✗ The p5.js algorithm (implement YOUR vision)
+    ✗ The parameters (define what YOUR art needs)
+    ✗ The UI controls (match YOUR parameters)
+
+    Let your philosophy guide the implementation.
+    The world is your oyster - be creative!
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graceful Exchange: Citius hero art</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Anthropic Brand Colors */
+        :root {
+            --anthropic-dark: #141413;
+            --anthropic-light: #faf9f5;
+            --anthropic-mid-gray: #b0aea5;
+            --anthropic-light-gray: #e8e6dc;
+            --anthropic-orange: #d97757;
+            --anthropic-blue: #6a9bcc;
+            --anthropic-green: #788c5d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--anthropic-light) 0%, #f5f3ee 100%);
+            min-height: 100vh;
+            color: var(--anthropic-dark);
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 320px;
+            flex-shrink: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(20, 20, 19, 0.1);
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .sidebar h1 {
+            font-family: 'Lora', serif;
+            font-size: 24px;
+            font-weight: 500;
+            color: var(--anthropic-dark);
+            margin-bottom: 8px;
+        }
+
+        .sidebar .subtitle {
+            color: var(--anthropic-mid-gray);
+            font-size: 14px;
+            margin-bottom: 32px;
+            line-height: 1.4;
+        }
+
+        /* Control Sections */
+        .control-section {
+            margin-bottom: 32px;
+        }
+
+        .control-section h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--anthropic-dark);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .control-section h3::before {
+            content: '•';
+            color: var(--anthropic-orange);
+            font-weight: bold;
+        }
+
+        /* Seed Controls */
+        .seed-input {
+            width: 100%;
+            background: var(--anthropic-light);
+            padding: 12px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            margin-bottom: 12px;
+            border: 1px solid var(--anthropic-light-gray);
+            text-align: center;
+        }
+
+        .seed-input:focus {
+            outline: none;
+            border-color: var(--anthropic-orange);
+            box-shadow: 0 0 0 2px rgba(217, 119, 87, 0.1);
+            background: white;
+        }
+
+        .seed-controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .regen-button {
+            margin-bottom: 0;
+        }
+
+        /* Parameter Controls */
+        .control-group {
+            margin-bottom: 20px;
+        }
+
+        .control-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--anthropic-dark);
+            margin-bottom: 8px;
+        }
+
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .slider-container input[type="range"] {
+            flex: 1;
+            height: 4px;
+            background: var(--anthropic-light-gray);
+            border-radius: 2px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .slider-container input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            background: var(--anthropic-orange);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .slider-container input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+            background: #c86641;
+        }
+
+        .slider-container input[type="range"]::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            background: var(--anthropic-orange);
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .value-display {
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            color: var(--anthropic-mid-gray);
+            min-width: 60px;
+            text-align: right;
+        }
+
+        /* Color Pickers */
+        .color-group {
+            margin-bottom: 16px;
+        }
+
+        .color-group label {
+            display: block;
+            font-size: 12px;
+            color: var(--anthropic-mid-gray);
+            margin-bottom: 4px;
+        }
+
+        .color-picker-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .color-picker-container input[type="color"] {
+            width: 32px;
+            height: 32px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            background: none;
+            padding: 0;
+        }
+
+        .color-value {
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            color: var(--anthropic-mid-gray);
+        }
+
+        /* Buttons */
+        .button {
+            background: var(--anthropic-orange);
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 100%;
+        }
+
+        .button:hover {
+            background: #c86641;
+            transform: translateY(-1px);
+        }
+
+        .button:active {
+            transform: translateY(0);
+        }
+
+        .button.secondary {
+            background: var(--anthropic-blue);
+        }
+
+        .button.secondary:hover {
+            background: #5a8bb8;
+        }
+
+        .button.tertiary {
+            background: var(--anthropic-green);
+        }
+
+        .button.tertiary:hover {
+            background: #6b7b52;
+        }
+
+        .button-row {
+            display: flex;
+            gap: 8px;
+        }
+
+        .button-row .button {
+            flex: 1;
+        }
+
+        /* Canvas Area */
+        .canvas-area {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 0;
+        }
+
+        #canvas-container {
+            width: 100%;
+            max-width: 1200px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(20, 20, 19, 0.1);
+            background: white;
+        }
+
+        #canvas-container canvas {
+            display: block;
+            width: 100% !important;
+            height: auto !important;
+        }
+
+        /* Loading State */
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: var(--anthropic-mid-gray);
+        }
+
+        /* Responsive - Stack on mobile */
+        @media (max-width: 600px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+            }
+
+            .canvas-area {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Control Sidebar -->
+        <div class="sidebar">
+            <!-- Headers (CUSTOMIZE THIS FOR YOUR ART) -->
+            <h1>Graceful Exchange</h1>
+            <div class="subtitle">Strands that trade places and change colour without breaking. Choose a seed for the Citius hero.</div>
+
+            <!-- Seed Section (ALWAYS KEEP THIS) -->
+            <div class="control-section">
+                <h3>Seed</h3>
+                <input type="number" id="seed-input" class="seed-input" value="7" onchange="updateSeed()">
+                <div class="seed-controls">
+                    <button class="button secondary" onclick="previousSeed()">← Prev</button>
+                    <button class="button secondary" onclick="nextSeed()">Next →</button>
+                </div>
+                <button class="button tertiary regen-button" onclick="randomSeedAndUpdate()">↻ Random</button>
+            </div>
+
+            <!-- Parameters Section (CUSTOMIZE THIS FOR YOUR ART) -->
+            <div class="control-section">
+                <h3>Parameters</h3>
+                <div class="control-group">
+                    <label>Speed (px per second)</label>
+                    <div class="slider-container">
+                        <input type="range" id="speed" min="0" max="120" step="1" value="22" oninput="updateParam('speed', this.value)">
+                        <span class="value-display" id="speed-value">22</span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label>Line count</label>
+                    <div class="slider-container">
+                        <input type="range" id="lines" min="6" max="90" step="1" value="34" oninput="updateParam('lines', this.value)">
+                        <span class="value-display" id="lines-value">34</span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label>Exchange density</label>
+                    <div class="slider-container">
+                        <input type="range" id="swap" min="0.05" max="0.9" step="0.01" value="0.42" oninput="updateParam('swap', this.value)">
+                        <span class="value-display" id="swap-value">0.42</span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label>Colour change rate</label>
+                    <div class="slider-container">
+                        <input type="range" id="migrate" min="0" max="0.15" step="0.005" value="0.035" oninput="updateParam('migrate', this.value)">
+                        <span class="value-display" id="migrate-value">0.035</span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label>Stage spacing (px)</label>
+                    <div class="slider-container">
+                        <input type="range" id="stage" min="70" max="320" step="5" value="150" oninput="updateParam('stage', this.value)">
+                        <span class="value-display" id="stage-value">150</span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label>Line weight (px)</label>
+                    <div class="slider-container">
+                        <input type="range" id="weight" min="0.5" max="4" step="0.25" value="1.25" oninput="updateParam('weight', this.value)">
+                        <span class="value-display" id="weight-value">1.25</span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label>Opacity</label>
+                    <div class="slider-container">
+                        <input type="range" id="opacity" min="0.15" max="1" step="0.05" value="0.55" oninput="updateParam('opacity', this.value)">
+                        <span class="value-display" id="opacity-value">0.55</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Colors Section (OPTIONAL - CUSTOMIZE OR REMOVE) -->
+            <div class="control-section">
+                <h3>Colors</h3>
+                <div class="color-group">
+                    <label>Before the exchange</label>
+                    <div class="color-picker-container">
+                        <input type="color" id="color1" value="#a8a8a8" oninput="updateColor('color1', this.value)">
+                        <span class="color-value" id="color1-value">#a8a8a8</span>
+                    </div>
+                </div>
+                <div class="color-group">
+                    <label>After the exchange</label>
+                    <div class="color-picker-container">
+                        <input type="color" id="color2" value="#0f62fe" oninput="updateColor('color2', this.value)">
+                        <span class="color-value" id="color2-value">#0f62fe</span>
+                    </div>
+                </div>
+                <div class="color-group">
+                    <label>Second generation</label>
+                    <div class="color-picker-container">
+                        <input type="color" id="color3" value="#009d9a" oninput="updateColor('color3', this.value)">
+                        <span class="color-value" id="color3-value">#009d9a</span>
+                    </div>
+                </div>
+                <div class="color-group">
+                    <label>Ground</label>
+                    <div class="color-picker-container">
+                        <input type="color" id="background" value="#ffffff" oninput="updateColor('background', this.value)">
+                        <span class="color-value" id="background-value">#ffffff</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions Section (ALWAYS KEEP THIS) -->
+            <div class="control-section">
+                <h3>Actions</h3>
+                <div class="button-row">
+                    <button class="button" onclick="regenerate()">Regenerate</button>
+                    <button class="button" onclick="resetParameters()">Reset</button>
+                </div>
+                <div class="button-row" style="margin-top: 8px;">
+                    <button class="button secondary" id="pause" onclick="togglePause()">Pause</button>
+                    <button class="button tertiary" onclick="saveCanvas('graceful-exchange-' + params.seed, 'png')">Download PNG</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Canvas Area -->
+        <div class="canvas-area">
+            <div id="canvas-container">
+                <div class="loading">Initializing generative art...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ═══════════════════════════════════════════════════════════════════════
+        // GENERATIVE ART PARAMETERS - CUSTOMIZE FOR YOUR ALGORITHM
+        // ═══════════════════════════════════════════════════════════════════════
+
+        let params = {
+            seed: 7,
+            speed: 22,
+            lines: 34,
+            swap: 0.42,
+            migrate: 0.035,
+            stage: 150,
+            weight: 1.25,
+            opacity: 0.55,
+            colorPalette: ['#a8a8a8', '#0f62fe', '#009d9a'],
+            background: '#ffffff'
+        };
+
+        let defaultParams = JSON.parse(JSON.stringify(params)); // Store defaults for reset
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // P5.JS GENERATIVE ART ALGORITHM - GRACEFUL EXCHANGE
+        // The core lives in assets/exchange.js on the website and is inlined here
+        // unchanged, so the viewer and the hero draw the same artwork.
+        // ═══════════════════════════════════════════════════════════════════════
+
+        /* Graceful Exchange: a seeded, endless braid of strands that trade places and change colour without
+           breaking (see art/graceful-exchange.md). Plain Canvas 2D, no dependencies. The same seed always gives
+           the same artwork: every swap and every colour change is a hash of (seed, stage, lane or strand), and
+           the drift is an accumulated distance, so a frame depends only on the seed and how far the field moved.
+
+           Use:  const art = new GracefulExchange({ seed: 7, lines: 34, ... });
+                 art.draw(ctx, widthCss, heightCss, offsetPx);   // ctx already scaled for devicePixelRatio */
+        (function (root) {
+          'use strict';
+
+          // a 32-bit integer hash to [0, 1): deterministic on every engine
+          function hash(seed, a, b) {
+            let x = (seed | 0) ^ Math.imul((a | 0) + 0x7f4a7c15, 0x9e3779b1) ^ Math.imul((b | 0) + 0x632be5ab, 0x85ebca77);
+            x ^= x >>> 16; x = Math.imul(x, 0x7feb352d);
+            x ^= x >>> 15; x = Math.imul(x, 0x846ca68b);
+            x ^= x >>> 16;
+            return (x >>> 0) / 4294967296;
+          }
+          function rgb(hex) {
+            const h = String(hex).replace('#', '');
+            const n = parseInt(h.length === 3 ? h.replace(/./g, '$&$&') : h, 16);
+            return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+          }
+          const css = (c) => `rgb(${c[0]},${c[1]},${c[2]})`;
+
+          const DEFAULTS = {
+            seed: 7,
+            lines: 34,          // strands (line count)
+            speed: 22,          // drift in px per second
+            stage: 150,         // px between exchange stages
+            swap: 0.42,         // chance that an adjacent pair trades at a stage
+            migrate: 0.035,     // chance that a strand changes colour at a stage
+            curve: 0.62,        // share of a stage the crossing takes
+            weight: 1.25,       // line width in px
+            opacity: 0.55,
+            colors: ['#a8a8a8', '#0f62fe', '#009d9a'],   // before, after, second generation
+            background: '#ffffff'
+          };
+
+          function GracefulExchange(params) { this.set(params || {}); }
+
+          GracefulExchange.prototype.set = function (params) {
+            this.p = Object.assign({}, DEFAULTS, this.p || {}, params);
+            this.p.lines = Math.max(2, Math.round(this.p.lines));
+            this.rgbs = this.p.colors.map(rgb);
+            this.bg = rgb(this.p.background);
+            this.cache = new Map();
+            this.cache.set(0, this.initial());
+          };
+
+          // stage 0: strands in order, all in the first generation
+          GracefulExchange.prototype.initial = function () {
+            const n = this.p.lines, perm = new Int16Array(n), ver = new Uint8Array(n);
+            for (let i = 0; i < n; i++) perm[i] = i;   // perm[lane] = strand
+            return { perm, ver };
+          };
+
+          // the configuration after the exchanges at stage k (k >= 0), computed forward from the nearest cached stage
+          GracefulExchange.prototype.state = function (k) {
+            if (k <= 0) return this.cache.get(0);
+            if (this.cache.has(k)) return this.cache.get(k);
+            let j = k - 1;
+            while (j > 0 && !this.cache.has(j)) j--;
+            let s = this.cache.get(j);
+            const n = this.p.lines, seed = this.p.seed;
+            for (let q = j + 1; q <= k; q++) {
+              const perm = Int16Array.from(s.perm), ver = Uint8Array.from(s.ver);
+              for (let i = q & 1; i + 1 < n; i += 2) {             // odd-even rhythm: disjoint pairs only
+                if (hash(seed, q, i) < this.p.swap) { const t = perm[i]; perm[i] = perm[i + 1]; perm[i + 1] = t; }
+              }
+              for (let st = 0; st < n; st++) {
+                if (hash(seed ^ 0x5bd1e995, q, st + 4096) < this.p.migrate && ver[st] < 2) ver[st]++;
+              }
+              s = { perm, ver };
+              this.cache.set(q, s);
+            }
+            // keep the cache small: the field only moves forward
+            if (this.cache.size > 96) for (const key of this.cache.keys()) { if (key !== 0 && key < k - 48) this.cache.delete(key); }
+            return s;
+          };
+
+          GracefulExchange.prototype.draw = function (ctx, w, h, offset) {
+            const p = this.p, n = p.lines, S = p.stage;
+            ctx.save();
+            ctx.fillStyle = css(this.bg);
+            ctx.fillRect(0, 0, w, h);
+            const pad = h * 0.04, lane = (h - 2 * pad) / n;
+            const Y = (l) => pad + (l + 0.5) * lane;
+            const k0 = Math.max(0, Math.floor(offset / S) - 1), k1 = Math.floor((offset + w) / S) + 2;
+            // lane of each strand at every visible stage, and its generation
+            const lanes = [], vers = [];
+            for (let k = k0; k <= k1; k++) {
+              const s = this.state(k), inv = new Int16Array(n);
+              for (let l = 0; l < n; l++) inv[s.perm[l]] = l;
+              lanes.push(inv); vers.push(s.ver);
+            }
+            const X = (k) => k * S - offset;
+            const cw = S * p.curve;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            const halo = css(this.bg);
+            const visible = (x) => x <= w + S && x + S >= -S;
+            // one strand at a time: first its halo where it crosses, then its line, so a strand only ever cuts the
+            // strands drawn before it (the weave) and never its own line
+            for (let st = 0; st < n; st++) {
+              const wgt = p.weight * (0.7 + 0.8 * hash(p.seed ^ 0x27d4eb2d, st, 77));   // depth: some strands nearer
+              const pt = [];                                       // the strand's knots: x, lane y before and after
+              for (let idx = 1; idx < lanes.length; idx++) {
+                const k = k0 + idx, x = X(k);
+                if (!visible(x)) continue;
+                pt.push({ x, ya: Y(lanes[idx - 1][st]), yb: Y(lanes[idx][st]), va: vers[idx - 1][st], vb: vers[idx][st] });
+              }
+              if (!pt.length) continue;
+              const piece = (q, from) => {                         // the path of one stage: crossing, then a straight run
+                if (from) ctx.moveTo(q.x, q.ya);
+                if (q.ya !== q.yb) ctx.bezierCurveTo(q.x + cw * 0.5, q.ya, q.x + cw * 0.5, q.yb, q.x + cw, q.yb);
+                else ctx.lineTo(q.x + cw, q.yb);
+                ctx.lineTo(q.x + S, q.yb);
+              };
+              // halo: only the crossings
+              ctx.globalAlpha = 1; ctx.strokeStyle = halo; ctx.lineWidth = wgt + 5;
+              for (const q of pt) {
+                if (q.ya === q.yb) continue;
+                ctx.beginPath(); ctx.moveTo(q.x + 2, q.ya);
+                ctx.bezierCurveTo(q.x + cw * 0.5, q.ya, q.x + cw * 0.5, q.yb, q.x + cw - 2, q.yb);
+                ctx.stroke();
+              }
+              // line: one path per colour run, a gradient piece where the colour hands over
+              ctx.globalAlpha = p.opacity; ctx.lineWidth = wgt;
+              const col = (v) => css(this.rgbs[Math.min(v, this.rgbs.length - 1)]);
+              let open = false;
+              for (let i = 0; i < pt.length; i++) {
+                const q = pt[i];
+                if (q.va !== q.vb) {
+                  if (open) { ctx.stroke(); open = false; }
+                  const g = ctx.createLinearGradient(q.x, 0, q.x + cw, 0);
+                  g.addColorStop(0, col(q.va)); g.addColorStop(1, col(q.vb));
+                  ctx.beginPath(); piece(q, true); ctx.strokeStyle = g; ctx.stroke();
+                  const m = Math.max(3, wgt * 3);                  // a square marks the version change
+                  ctx.fillStyle = col(q.vb); ctx.fillRect(q.x + cw - m / 2, q.yb - m / 2, m, m);
+                  continue;
+                }
+                if (!open) { ctx.beginPath(); ctx.strokeStyle = col(q.vb); piece(q, true); open = true; }
+                else piece(q, false);
+              }
+              if (open) ctx.stroke();
+            }
+            ctx.restore();
+          };
+
+          GracefulExchange.DEFAULTS = DEFAULTS;
+          GracefulExchange.hash = hash;
+          root.GracefulExchange = GracefulExchange;
+        })(typeof window !== 'undefined' ? window : globalThis);
+
+        let art, offset = 0, paused = false;
+
+        function artParams() {
+            return { seed: params.seed, lines: params.lines, speed: params.speed, swap: params.swap,
+                     migrate: params.migrate, stage: params.stage, weight: params.weight, opacity: params.opacity,
+                     colors: params.colorPalette.slice(), background: params.background };
+        }
+
+        function setup() {
+            let canvas = createCanvas(1440, 720);   // the hero's 2:1 frame
+            canvas.parent('canvas-container');
+            initializeSystem();
+            document.querySelector('.loading').style.display = 'none';
+        }
+
+        function initializeSystem() {
+            randomSeed(params.seed);   // p5's own generators are seeded too; the art uses its seeded hash
+            noiseSeed(params.seed);
+            art = new GracefulExchange(artParams());
+            offset = 0;
+            if (paused) redraw();
+        }
+
+        function draw() {
+            if (!paused) offset += (deltaTime / 1000) * params.speed;
+            art.draw(drawingContext, width, height, offset);
+        }
+
+        function regenerate() { initializeSystem(); }
+
+        function togglePause() {
+            paused = !paused;
+            document.getElementById('pause').textContent = paused ? 'Play' : 'Pause';
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // UI CONTROL HANDLERS
+        // ═══════════════════════════════════════════════════════════════════════
+
+        function updateParam(paramName, value) {
+            params[paramName] = parseFloat(value);
+            document.getElementById(paramName + '-value').textContent = value;
+            if (paramName === 'speed') { art.p.speed = params.speed; return; }   // speed changes the drift only
+            if (['weight', 'opacity'].includes(paramName)) { art.p[paramName] = params[paramName]; return; }
+            const keep = offset;
+            art = new GracefulExchange(artParams());
+            offset = keep;
+        }
+
+        function updateColor(colorId, value) {
+            if (colorId === 'background') params.background = value;
+            else params.colorPalette[{ color1: 0, color2: 1, color3: 2 }[colorId]] = value;
+            document.getElementById(colorId + '-value').textContent = value;
+            art.set({ colors: params.colorPalette.slice(), background: params.background });
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // SEED CONTROL FUNCTIONS - ALWAYS KEEP THESE
+        // ═══════════════════════════════════════════════════════════════════════
+
+        function updateSeedDisplay() {
+            document.getElementById('seed-input').value = params.seed;
+        }
+
+        function updateSeed() {
+            let input = document.getElementById('seed-input');
+            let newSeed = parseInt(input.value);
+            if (newSeed && newSeed > 0) {
+                params.seed = newSeed;
+                initializeSystem();
+            } else {
+                // Reset to current seed if invalid
+                updateSeedDisplay();
+            }
+        }
+
+        function previousSeed() {
+            params.seed = Math.max(1, params.seed - 1);
+            updateSeedDisplay();
+            initializeSystem();
+        }
+
+        function nextSeed() {
+            params.seed = params.seed + 1;
+            updateSeedDisplay();
+            initializeSystem();
+        }
+
+        function randomSeedAndUpdate() {
+            params.seed = Math.floor(Math.random() * 999999) + 1;
+            updateSeedDisplay();
+            initializeSystem();
+        }
+
+        function resetParameters() {
+            const seed = params.seed;
+            params = JSON.parse(JSON.stringify(defaultParams));
+            params.seed = seed;
+            ['speed', 'lines', 'swap', 'migrate', 'stage', 'weight', 'opacity'].forEach(function (k) {
+                document.getElementById(k).value = params[k];
+                document.getElementById(k + '-value').textContent = params[k];
+            });
+            ['color1', 'color2', 'color3'].forEach(function (k, i) {
+                document.getElementById(k).value = params.colorPalette[i];
+                document.getElementById(k + '-value').textContent = params.colorPalette[i];
+            });
+            document.getElementById('background').value = params.background;
+            document.getElementById('background-value').textContent = params.background;
+            updateSeedDisplay();
+            initializeSystem();
+        }
+
+        // Initialize UI on load
+        window.addEventListener('load', function() {
+            updateSeedDisplay();
+        });
+    </script>
+</body>
+</html>

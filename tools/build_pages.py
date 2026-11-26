@@ -41,7 +41,7 @@ HEAD = '''<!doctype html>
 }}
 </style>
 <link rel="stylesheet" href="assets/site.css?v=10">
-<link rel="stylesheet" href="assets/ibm.css?v=10">
+<link rel="stylesheet" href="assets/ibm.css?v=15">
 <script>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
 </head>
 <body class="doc-page">

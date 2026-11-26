@@ -47,6 +47,24 @@
         ],
         "createdAt": "2026-11-26T16:23:12.096Z",
         "reason": "Claude: verified in render, sections pad 64px, rows 12px, table cells padded; detector reads unstyled markup"
+      },
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          "art/graceful-exchange.html"
+        ],
+        "createdAt": "2026-11-26T17:46:43.704Z",
+        "reason": "Claude: algorithmic-art skill requires its fixed viewer template styling; internal seed-picking tool, not a site page"
+      },
+      {
+        "rule": "skipped-heading",
+        "value": "*",
+        "files": [
+          "art/graceful-exchange.html"
+        ],
+        "createdAt": "2026-11-26T17:46:43.776Z",
+        "reason": "Claude: algorithmic-art skill requires its fixed viewer template styling; internal seed-picking tool, not a site page"
       }
     ]
   }

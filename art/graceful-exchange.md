@@ -1,0 +1,13 @@
+# Graceful Exchange
+
+**An algorithmic philosophy for the Citius hero.**
+
+Agility is not the absence of change. It is change that the system around it never feels. Graceful Exchange is a generative movement about entities that trade places and natures while the whole stays continuous: nothing breaks, nothing waits, nothing is rebuilt. The work is a field of strands that flow without end across the frame. Each strand is an identity that persists. Everything else about it may be exchanged.
+
+The computational structure is a sorting network that never finishes. Strands run in lanes. At regular stages along the flow, adjacent lanes may trade their strands, chosen by an odd-even rhythm so that no strand is asked to be in two places at once. Each trade is drawn as a single smooth crossing, eased on a cubic curve so that the exchange reads as one gesture, not as a jump. The network extends forever in both directions, and every stage is derived deterministically from the seed, the stage index and the lane: the same seed always produces the same braid, frame for frame. This is a meticulously crafted algorithm, the product of deep computational care, where determinism is not a constraint but the guarantee that makes the motion trustworthy.
+
+The second exchange is quieter. At rare, seeded moments, a strand changes its nature as it passes a stage. Its colour hands over from one hue to the next across the length of the crossing, a gradient, never a cut. A small square marks where the change happened, like a version number in a ledger. The strand keeps its place in the braid and its continuity of line; only its character moves forward. Those who know will see a key keeping its name while its algorithm migrates. Everyone else will see a calm, woven field that renews itself.
+
+Depth comes from the order of drawing, not from effects. Each strand carries a thin halo in the ground colour, so that where two strands cross, one passes cleanly over the other and the weave becomes legible. Line weight, lane spacing, stage spacing and the tension of each curve have been tuned through painstaking iteration so that density never turns to noise and stillness never turns to emptiness. The colours are few and deliberate: a quiet neutral for what came before, a clear blue for what comes next, and one accent for the rare second generation.
+
+Time is treated as distance. The field drifts at a constant, adjustable speed, and the drift accumulates instead of being recomputed, so a change in speed never causes a jump. Under reduced motion the field rests on its first frame. The result should feel like the work of a master of computational aesthetics: restrained, exact, and alive, with every parameter refined until exchange looks effortless.

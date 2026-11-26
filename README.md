@@ -21,6 +21,7 @@ Static HTML, CSS and JavaScript; no build step is needed to serve it.
 - `assets/ibm.css`, `assets/fonts/`: the IBM theme (Carbon for IBM.com colour tokens, IBM Plex Sans and Mono, self-hosted). It loads after `site.css`.
 - `assets/icons/*.svg`: real tool marks (Go, Rust, gRPC, protobuf, C, OpenSSL), with `icons-credits.json`.
 - `assets/img/paper-intent-api-p1.jpg`: the first page of arXiv:2606.13445.
+- `assets/exchange.js`, `assets/hero-art.js`: the hero background, Graceful Exchange (seed 7). `art/graceful-exchange.html` is the viewer to explore seeds and parameters; `art/graceful-exchange.md` describes the idea. Rebuild the viewer after changing `exchange.js` with `python3 tools/build_viewer.py assets/exchange.js art/graceful-exchange.html`.
 - `tools/`: the generators.
 
 ## Regenerating
