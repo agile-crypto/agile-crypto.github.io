@@ -246,3 +246,18 @@ html[data-buttons] .btn--secondary, html[data-buttons] .btn--secondary:hover { t
 @media (min-width: 1024px) { .hero .hero__art > .ly-piece--main { top: 0; } }
 /* a phone has no free ground beside the words and the window: the art rests there */
 @media (max-width: 639px) { .hero > .hero-art { display: none; } }
+
+/* ---- the key: the 3D stage in the key-versions card (assets/key3d.js) */
+.panel.key3d { overflow: hidden; }
+.key3d__stage { position: absolute; inset: 0; }
+.key3d__stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; opacity: 0; }
+.key3d--ready .key3d__stage canvas { opacity: 1; }
+.key3d__poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.key3d--ready .key3d__poster { opacity: 0; }   /* an instant swap: the poster is the first frame */
+.key3d--still .key3d__stage canvas { display: none; }
+/* below 1280 the diff's long label goes; the tab keeps "PKCS#11" */
+@media (max-width: 1279px) { .diff-win .ui-chip { display: none; } }
+/* tablets, like phones, have no free ground beside the hero's words and window: the art rests */
+@media (max-width: 1023px) { .hero > .hero-art { display: none; } }
+/* phones: the label column fits "EvaluatePolicy" */
+@media (max-width: 639px) { .vis-row { grid-template-columns: 9.2em minmax(0, 1fr); } }
